@@ -5,8 +5,8 @@ using UnityEngine;
 public class PillarMatrix : MonoBehaviour
 {
 
-    static int iwidth = 1000;
-    static int jwidth = 1000;
+    static int iwidth = 100;
+    static int jwidth = 100;
     public GameObject[][] pillars = new GameObject[iwidth][];
 
     public float ixrot = 1f;
@@ -24,10 +24,14 @@ public class PillarMatrix : MonoBehaviour
       for (int i = 0; i < iwidth; i++) {
         pillars[i] = new GameObject[jwidth];
         for (int j = 0; j < jwidth; j++) {
-          pillars[i][j] = GameObject.CreatePrimitive(PrimitiveType.Cube);
-          pillars[i][j].transform.parent = transform;
-          pillars[i][j].transform.position = new Vector3(i-iwidth/2,j-jwidth/2,0);
-          pillars[i][j].transform.localScale = new Vector3(0.1f,0.1f,2f);
+            pillars[i][j] = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            pillars[i][j].transform.parent = transform;
+            pillars[i][j].transform.position = new Vector3(i-iwidth/2,j-jwidth/2,0);
+            pillars[i][j].transform.localScale = new Vector3(1f,0.1f,10f);
+            float iRatio = (i * 0.75f) / iwidth;
+            float jRatio = (j * 0.75f) / jwidth;
+            float redComponent = Mathf.Sqrt(iRatio * jRatio);
+            pillars[i][j].GetComponent<Renderer>().material.color = new Color(redComponent, iRatio, jRatio, 1);
         }
       }
 
